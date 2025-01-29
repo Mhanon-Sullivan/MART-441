@@ -1,0 +1,32 @@
+*{
+    font-family: 'Courier New'; 
+}
+body {
+    background-color: #b5a5ae;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+#main {
+    background-color: #fff;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(141, 0, 19, 0.326);
+}
+
+#choices, #title, #story, p {
+    font-family: 'Courier New';
+    color: #272727
+ }
+
+img {
+    width: 35%;
+    display: block;
+    margin: auto;
+}
+
+h1 {
+    text-decoration: underline;
+}

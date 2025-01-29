@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your Own Adventure: Oceanfront Exploration</title>
+  <link rel="stylesheet" href="style/style.css">
+</head>
+
+<body>
+  <div id="main">
+    <h1 id="title">Choose Your Own Adventure: Oceanfront Exploration</h1>
+    <img id="scene-image" src="images/oceanfront.jpg" class="scene-image">
+    <p id="story">You are standing on a vacant beach. The air is still and cold, and the ocean laps at the rocky sand. Night is approaching, and a darkening storm looms overhead. You are far from your safe, cozy home. There is an abandoned lighthouse to your left, as well as a sturdy hut made of driftwood off to your right. What will you do?</p>
+    <div id="choices">
+      <button onclick="choosePath(1)">Go to the lighthouse</button>
+      <button onclick="choosePath(2)">Go to the driftwood hut</button>
+      <button onclick="choosePath(3)">Take a swim</button>
+    </div>
+  </div>
+
+  <script>
+
+    const buttonClickSound = new Audio('audio/click.wav');
+
+    var storyProgress = "";
+
+    function choosePath(choice) {
+      const storyElement = document.getElementById('story');
+      const imageElement = document.getElementById('scene-image');
+
+      buttonClickSound.currentTime = 0;
+      buttonClickSound.play();
+
+
+      //PATH ONE
+      if (choice === 1) {
+        storyProgress += "You trek over to the lighthouse. The sound of thunder cracks through the air, shaking the ground, and you bolt through the creaky wooden door. ";
+        storyElement.textContent = storyProgress + "You find a soft looking pile of hay at the base of set of a long, winding spiral staircase. Do you ascend the stairs, or cozy up in the haypile while you wait for the storm to pass? ";
+        imageElement.src = "images/lighthouse.jpg";
+        document.getElementById('choices').innerHTML = `
+          <button onclick="choosePath(4)">Ascend the stairs</button>
+          <button onclick="choosePath(5)">Lay down in the hay</button>`;
+      } 
+      //PATH TWO
+      else if (choice === 2) {
+        storyProgress += "You head over to the hut. Once you're there, you peek inside. It doesn't seem to be all that protected from the elements, but it looks dry and stable. ";
+        storyElement.textContent = storyProgress + "When you sit down, you hear chattering. You turn and see a plump raccoon. He is also taking shelter from the storm. Will you shoo him away or let him stay?";
+        imageElement.src = "images/hut.jpg";
+        document.getElementById('choices').innerHTML = `
+          <button onclick="choosePath(6)">Shoo him away</button>
+          <button onclick="choosePath(7)">Let him stay</button>`;
+      } 
+      //PATH THREE
+      else if (choice === 3) {
+        storyProgress += "Why on earth would you choose this? There's a massive storm heading in! Okay, whatever. ";
+        storyElement.textContent = storyProgress + "You jump into the ocean. You're freezing cold, you can't feel your limbs, and you're pretty sure an octopus just stole your shoe. Is it too cold for octopuses? Eh, who cares. You're probably about to die, anyways. What now?";
+        imageElement.src = "images/ocean.jpg";
+        document.getElementById('choices').innerHTML = `
+          <button onclick="choosePath(8)">Look down at your shoeless foot</button>
+          <button onclick="choosePath(9)">Close your eyes</button>`;
+      } 
+      //PATH ONE
+      else if (choice === 4) {
+        storyElement.textContent = "You trudge up hundreds of stairs. Good golly, this lighthouse is tall! You peer down at where you just came from. You sure hope nothing comes and pushes you off this comically high, railingless staircase! When you reach the top, you're met with the coziest looking little bedroom you've ever seen in your life. You lock the door behind you, fluff the dust off of the pillow, and settle down for the night. You shuffle around, trying to get comfortable, when a fluffy grey cat comes and lays right down on top of you. She's very warm. You are okay with this. Goodnight!";
+        imageElement.src = "images/bedroom.jpg";
+        document.getElementById('choices').innerHTML = "";
+      } 
+      //PATH ONE
+      else if (choice === 5) {
+        storyElement.textContent = "You settle yourself into the haypile and spread some straw over yourself as a makeshift blanket. Despite the raging storm outside, you find yourself to be very comfortable. You sure hope nothing is up those stairs that you didn't bother checking! The booming thunder fades into the background and you slip into a (mostly) peaceful sleep.";
+        imageElement.src = "images/haypile.jpg";
+        document.getElementById('choices').innerHTML = "";
+      } 
+      //PATH TWO
+      else if (choice === 6) {
+        storyElement.textContent = "You shoo the raccoon away. Congratulations, you made him sad, you heartless monster. Thunder claps and he runs right back in, clinging to your leg despite your cruelty. You didn't actually get a choice here. He's staying, but now I hope you feel bad.";
+        imageElement.src = "images/raccoon2.jpg";
+        document.getElementById('choices').innerHTML = "";
+      } 
+      //PATH TWO
+      else if (choice === 7) {
+        storyElement.textContent = "You let him stay. You sit in the far corner and stare at him for a while. He looks very soft. Thunder claps and he bolts into your lap, shaking. You stroke his very soft fur in an attempt to calm him down. You keep each other warm for the rest of the night, and have found in each other a new friend that will last a lifetime.";
+        imageElement.src = "images/raccoon.jpg";
+        document.getElementById('choices').innerHTML = "";
+      } 
+      //PATH THREE
+      else if (choice === 8) {
+        storyElement.textContent = "With your last ounce of strength, you crane your neck down to look at your foot. Your eyes widen in surprise as you see a beautiful mermaid with her hands around your ankle. She looks up at you in delight and smiles, then drags you downwards. Are you still alive? How are you not drowning? Huh. Okay. The mermaid tucks you into a bed of seaweed, far from the raging storm above, and lays down next to you. She slips a ring of coral onto your finger and falls asleep. I guess eye contact is some weird form of marraige proposal down here. Congratulations?";
+        imageElement.src = "images/mermaid.jpg";
+        document.getElementById('choices').innerHTML = "";
+      } 
+      //PATH THREE
+      else if (choice === 9) {
+        storyElement.textContent = "You close your eyes and accept the fate you so stupidly chose. You're cold. Very cold. When you open your eyes again, you're laying flat in the sand on the beach. The storm is gone and you're soaked to the bone. Also, you're not dead! Hooray! I think? That totally should have killed you. Oh well. The sun is shining and you start wetly trudging your way home. We're not even going to question the blue lipstick smooch on your cheek.";
+        imageElement.src = "images/beach.jpg";
+        document.getElementById('choices').innerHTML = "";
+      }
+    }
+  </script>
+</body>
+</html>
