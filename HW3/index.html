@@ -36,7 +36,7 @@
       //PATH ONE
       if (choice === 1) {
         storyProgress += "You trek over to the lighthouse. The sound of thunder cracks through the air, shaking the ground, and you bolt through the creaky wooden door. ";
-        storyElement.textContent = storyProgress + "You find a soft looking pile of hay at the base of set of a long, winding spiral staircase. Do you ascend the stairs, or cozy up in the haypile while you wait for the storm to pass? ";
+        storyElement.textContent = storyProgress + "You find a soft looking pile of hay at the base of a long, winding spiral staircase. Do you ascend the stairs, or cozy up in the haypile while you wait for the storm to pass? ";
         imageElement.src = "images/lighthouse.jpg";
         document.getElementById('choices').innerHTML = `
           <button onclick="choosePath(4)">Ascend the stairs</button>
@@ -68,7 +68,7 @@
       } 
       //PATH ONE
       else if (choice === 5) {
-        storyElement.textContent = "You settle yourself into the haypile and spread some straw over yourself as a makeshift blanket. Despite the raging storm outside, you find yourself to be very comfortable. You sure hope nothing is up those stairs that you didn't bother checking! The booming thunder fades into the background and you slip into a (mostly) peaceful sleep.";
+        storyElement.textContent = "You settle yourself into the haypile and spread some hay over yourself as a makeshift blanket. Despite the raging storm outside, you find yourself to be very comfortable. You sure hope nothing is up those stairs that you didn't bother checking! The booming thunder fades into the background and you slip into a (mostly) peaceful sleep.";
         imageElement.src = "images/haypile.jpg";
         document.getElementById('choices').innerHTML = "";
       } 
