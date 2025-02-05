@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your Own Adventure: Oceanfront Exploration</title>
+  <link rel="stylesheet" href="style/style.css">
+
+</head>
+
+<body>
+  <div id="main">
+    <h1 id="title">Choose Your Own Adventure: Oceanfront Exploration</h1>
+    <img id="scene-image" src="images/oceanfront.jpeg" class="scene-image" style="width:100%; max-width:400px;">
+    <p id="story">You are standing on a cold, rocky beach. The frothy waves are crashing against the shore as you stare out over the horizon. There's a swath of dark clouds looming closer, and you are too far from your cozy home to return before dark. Lightning illuminates the sky. You should take cover. As you glance around for a solution, you see a few possible options. What will you do? Go to the LIGHTHOUSE, the HUT, or TAKE A SWIM?</p>
+    <input type="text" id="user-input" placeholder="Type here">
+    <div id="choices">
+      <button onclick="processInput()">Submit Choice</button>
+      <button onclick="restartStory()">Restart Story</button>
+    </div>
+  </div>
+
+  <script>
+    const buttonClickSound = new Audio('audio/click.wav');
+    let storyProgress = "";
+
+    function processInput() {
+      const userInput = document.getElementById('user-input').value.toLowerCase();
+      buttonClickSound.currentTime = 0;
+      buttonClickSound.play();
+      makeDecision(userInput);
+    }
+
+    function makeDecision(choice) {
+      const storyElement = document.getElementById('story');
+      const imageElement = document.getElementById('scene-image');
+
+      storyProgress = "";
+
+      
+
+      //three starting choices
+
+      if (choice.includes("lighthouse")) {
+        updateStory("Thunder cracks through the air behind you - a very encouraging nod to get going. You dart down the beach and stop at the door. You force your way through the door by ramming into it shoulder-first. Owie. Anyways, the door opens and you fall to the cement floor. Double owie. You turn and push the door closed again. You slide back down to the floor with a weary huff, and as you look around, you see two things: a winding spiral staircase and a hefty pile of hay", "images/lighthouse.jpg");
+        nextDecision("Do you ascend the STAIRS, or cozy up in the HAYPILE while you wait for the storm to pass?");
+
+
+      } else if (choice.includes("hut")) {
+        updateStory("Thunder cracks through the air behind you - a very encouraging nod to get going. You bolt across the sand and skid to a halt in front of the hut. It's old and dilapidated; it's definitely drafty! You duck down and crawl your way in. It's starting to rain, but the ceiling seems to be sturdy enough. You're not getting wet, and that's all that matters. Your eyes go wide as you hear chattering behind you. Your head whips around and you make direct eye contact with a plump raccoon.", "images/hut.jpg");
+        nextDecision("Do you BEFRIEND the raccoon or SHOO him away?");
+
+
+      } else if (choice.includes("take a swim")) {
+        updateStory("Why on earth would you pick this one? There's a massive lightning storm overhead! The waves with thrash your frail little body against the rocks like it's nothing! Okay. Fine, whatever. You did this to yourself. You go for a swim. You're cold. So, so cold. You can't feel your limbs, you're basically blind, and you think an squid just stole your shoe. Is it too cold for squids? Eh, it probably doesn't matter anymore. What do you do with your last ounce of strength?", "images/ocean.jpg");
+        nextDecision("Do you LOOK DOWN at your foot or CLOSE YOUR EYES?");
+
+        //six endings
+
+      } else if (choice.includes("stairs")) {
+        updateStory("You trudge up hundreds of stairs. Good golly, this lighthouse is tall! You peer down at where you just came from. You sure hope nothing comes and pushes you off this comically high, railingless staircase! When you reach the top, you're met with the coziest looking little bedroom you've ever seen in your life. You lock the door behind you, fluff the dust off of the pillow, and settle down for the night. You shuffle around, trying to get comfortable, when suddenly... there's a cat! A really round cat. Wow. And so fluffy! He waddles over to the bed and clambers up next to you with a chirp. You grin at your new friend and stroke his back. He rubs his face against your hand and you can feel him rumbling in delight. You lay yourself back down and he settles himself in your arms. You're so cozy... and sleepy. The storm will be gone by daybreak. You fall asleep.", "images/bedroom.jpg");
+        endStory();
+
+
+      } else if (choice.includes("haypile")) {
+        updateStory("You investigate the haypile. You tiptoe all the way around it, trying to peer into it for any sign of life. When you see none, you kneel down and lay against it. The wind howls outside and you discover how drafty this old building is. You burrow down into the hay and find yourself significantly warmer than you were. Something squeaks beneath you. You jump at the sound and look down to see a shivering family of little mice. Oh, poor dears... You offer out your hands and they gladly bounce into your loving embrace. You gently place all four of them into your fuzzy pocket and lean back into the hay. It's gonna be a long night, but at least you have company now. The storm will pass through by morning.", "images/haypile.jpg");
+        endStory();
+
+
+      } else if (choice.includes("befriend")) {
+        updateStory("You let him stay in the hut with you. He was here first, after all. You settle down in the corner opposite him. For a while, you just stare at him. He's trembling. Another crack of thunder sends him barrelling into your lap for safety. He's puffed up like an over-roasted marshmallow. You stroke his very soft fur in an attempt to calm him down. You keep each other warm for the rest of the night, and have found in each other a new friend that will last a lifetime.", "images/raccoon.jpg");
+        endStory();
+
+
+      } else if (choice.includes("shoo")) {
+        updateStory("You shoo him out of the hut and he darts out onto the beach. This is your hut now. You've claimed it as your own. Fully and truly. Thunder shakes the ground, and the raccoon scrambles back into the hut, clinging to your leg despite your prior cruelty. You didn't actually get a choice here, you heartless monster. He's staying, but now I hope you feel bad >:(", "images/raccoon.png");
+        endStory();
+
+
+      } else if (choice.includes("look down")) {
+        updateStory("With your last ounce of strength, you crane your neck down to look at your foot. Your eyes widen in surprise as you see a beautiful mermaid with her hands around your ankle. She looks up at you in delight and smiles, then drags you downwards. Are you still alive? How are you not drowning? Huh. Okay. You flash an awkward smile and she does a few little spins. Her long, black hair flows around her like a blanket. She pulls you over to a mat of seaweed and lays you down, scooching in next you to. She picks up your hand and slips a coral ring onto your finger. I guess eye contact is some weird form of marriage proposal to her kind. Congratulations? You stare at the ring on your hand, then back to her. She nods enthusiastically, then kisses you on the cheek. Alright, then. You settle into the seaweed bed and her tailfin drapes over you like a blanket. Congrats on your new marriage! May you live a long and happy life together. Underwater. Forever and ever :)", "images/mermaid.jpg");
+        endStory();
+
+
+      } else if (choice.includes("close your eyes")) {
+        updateStory("You close your eyes and feel yourself sink into the waves. You're not cold anymore. Oh? Your face feels warms and the gulls are cawing. Your eyes snap open and you're blinded by the midday sun. What? You're laying flat on the sand, right where you started. You blink. You should be dead. What on earth happened? You clamber to your feet and stumble your way off the beach. We're not even going to talk about the blue lipstick smooch on your cheek. Let this be a warning, don't go swimming during a storm. Next time, you might not be so lucky.", "images/beach.jpg");
+        endStory();
+
+
+      } else {
+        storyElement.textContent = " I didn't get that. Please type in one of the capitalized options.";
+      }
+
+    }
+
+    function updateStory(newText, imageSrc) {
+      const storyElement = document.getElementById('story');
+      const imageElement = document.getElementById('scene-image');
+      storyProgress += newText + " ";
+      storyElement.textContent = storyProgress;
+      imageElement.src = imageSrc;
+    }
+
+    function nextDecision(prompt, options) {
+      const storyElement = document.getElementById('story');
+      storyElement.textContent += " " + prompt;
+    }
+
+    function endStory() {
+      const choicesDiv = document.getElementById('choices');
+      choicesDiv.innerHTML = '<button onclick="restartStory()">Restart Story</button>';
+    }
+
+    function restartStory() {
+      const restartMessage = [
+        "Starting over! :)!"
+      ];
+
+      storyProgress = "";
+      document.getElementById('scene-image').src = "images/oceanfront.jpeg";
+      document.getElementById('story').textContent = "You are standing on a cold, rocky beach. The frothy waves are crashing against the shore as you stare out over the horizon. There's a swath of dark clouds looming closer, and you are too far from your cozy home to return before dark. Lightning illuminates the sky. You should take cover. As you glance around for a solution, you see a few possible options. What will you do? Go to the LIGHTHOUSE, the HUT, or TAKE A SWIM?";
+      document.getElementById('choices').innerHTML = '<button onclick="processInput()">Submit Choice</button><button onclick="restartStory()">Restart Story</button>';
+      document.getElementById('user-input').value = '';
+
+      for (let i = 0; i < restartMessage.length; i++) {
+        console.log(restartMessage[i]);
+      }
+    }
+  </script>
+</body>
+</html>
