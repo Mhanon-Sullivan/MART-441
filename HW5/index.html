@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Matching Game</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="grid" id="gameBoard"></div>
+    <script>
+        //images
+        const images = ['images/image1.jpg', 'images/image2.jpg', 'images/image3.jpg', 'images/image4.png', 'images/image5.png', 'images/image6.jpg'];
+        //blank cards
+        const cards = [...images, ...images].sort(() => Math.random() - 0.5);
+        //grid
+        const gameBoard = document.getElementById("gameBoard");
+        let selected = [];
+
+        for (let i = 0; i < cards.length; i++) {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            //blank cards
+            card.innerHTML = `<img src="${cards[i]}" class="hidden">`;
+            //flip
+            card.addEventListener("click", () => flipCard(card));
+            gameBoard.appendChild(card);
+        }
+
+        function flipCard(card) {
+            if (selected.length < 2 && !card.classList.contains("matched")) {
+                const img = card.querySelector("img");
+                img.classList.toggle("hidden");
+                selected.push(card);
+                if (selected.length === 2) setTimeout(checkMatch, 500);
+            }
+        }
+
+        function checkMatch() {
+            if (selected[0].innerHTML === selected[1].innerHTML) {
+                selected.forEach(card => card.classList.add("matched"));
+            } else {
+                selected.forEach(card => card.querySelector("img").classList.add("hidden"));
+            }
+            selected = [];
+        }
+    </script>
+</body>
+</html>
