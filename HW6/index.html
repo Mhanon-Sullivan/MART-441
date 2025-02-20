@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head><title>User Info</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <form id="userForm">
+        <input type="text" id="firstName" placeholder="First Name" required>
+        <input type="text" id="lastName" placeholder="Last Name" required>
+        <input type="number" id="age" placeholder="Age" required>
+        <button type="submit">Start</button>
+    </form>
+    <script>
+        document.getElementById("userForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            localStorage.setItem("userData", JSON.stringify({
+                firstName: document.getElementById("firstName").value,
+                lastName: document.getElementById("lastName").value,
+                age: document.getElementById("age").value,
+                attempts: 0
+            }));
+            window.location.href = "game.html";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Memory Game</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <div id="gameBoard"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const images = [
+                'images/image1.jpg', 'images/image2.jpg', 'images/image3.jpg', 'images/image4.png', 'images/image5.png', 'images/image6.jpg'
+            ];
+            const cards = [...images, ...images].sort(() => Math.random() - 0.5);
+            const gameBoard = document.getElementById("gameBoard");
+            let selected = [], attempts = 0, matchedPairs = 0;
+
+            // Create and render cards
+            cards.forEach(src => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                const img = document.createElement("img");
+                img.src = src;
+                img.classList.add("hidden");
+                card.appendChild(img);
+                card.addEventListener("click", () => flipCard(card, img));
+                gameBoard.appendChild(card);
+            });
+
+            function flipCard(card, img) {
+                if (selected.length < 2 && !card.classList.contains("matched")) {
+                    img.classList.toggle("hidden");
+                    selected.push({ card, img });
+                    if (selected.length === 2) {
+                        attempts++;
+                        setTimeout(checkMatch, 500);
+                    }}}
+
+            function checkMatch() {
+                if (selected[0].img.src === selected[1].img.src) {
+                    selected.forEach(({ card }) => card.classList.add("matched"));
+                    matchedPairs++;
+                }
+                
+                else {
+                    selected.forEach(({ img }) => img.classList.add("hidden"));
+                }
+                
+                selected = [];
+
+                if (matchedPairs === images.length) {
+                    let userData = JSON.parse(localStorage.getItem("userData"));
+                    userData.attempts = attempts;
+                    localStorage.setItem("userData", JSON.stringify(userData));
+                    setTimeout(() => window.location.href = "results.html", 500);
+                }}});
+    </script>
+</body>
+</html>
