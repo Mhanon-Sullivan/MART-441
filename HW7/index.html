@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Viewfinder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 id="title">Click the button to view the image</h1>
+    <img id="image" src="images/image6.jpg" alt="Image">
+    <p id="description"></p>
+    <p id="author"></p>
+    <p id="year"></p>
+    <button onclick="displayRandomImage()">Click Here!</button>
+
+    <script>
+        class Image {
+            constructor(title, image, description, author, year) {
+                this.title = title;
+                this.image = image;
+                this.description = description;
+                this.author = author;
+                this.year = year;
+            }
+        }
+
+        const images = [
+            new Image("Love Trumps Hate", "images/image1.png", "Two queer New Yorkers, newly married under the first Trump administration and its ideals against the LGBTQ+ community.", "Nicki De Nueva", 2016),
+
+            new Image("40 Acres and a Mule, This is Bigger Than the Music", "images/image2.jpg", "Kendrick Lamar at the 2025 Superbowl Halftime show. He stands in the middle of a split American flag built entirely of black performers. A country built on the backs of slaves - a country divided by white supremacists emboldened by the second Trump administration.", "Christopher Polk", 2025),
+
+            new Image("Arkansas State Capitol Protest", "images/image3.jpg", "Kylie Hurley, a single mother from Little Rock, Arkansas, in attendance of a protest against President Trump and his Project 2025 agenda to eliminate national diversity.", "Mary Hennigan", 2025),
+
+            new Image("Chappell Roan at the Grammy Awards", "images/image4.jfif", "Chappell Roan's Best New Artist acceptance speech demands living wages for musicians and fellow creators of the arts in front of some of the biggest names in music.", "Kevin Mazur", 2025),
+
+            new Image("Reproductive Rights Are Human Rights", "images/image5.jpg", "Jennie Klecker participates in a march to protect abortion rights in Madison, Wisconsin after the overturning of Roe v. Wade.", "Angela Major", 2023)
+        ];
+
+        function displayRandomImage() {
+            const image = images[Math.floor(Math.random() * images.length)];
+            document.getElementById("title").innerText = image.title;
+            document.getElementById("image").src = image.image;
+            document.getElementById("description").innerText = image.description;
+            document.getElementById("author").innerText = `Author: ${image.author}`;
+            document.getElementById("year").innerText = `Year: ${image.year}`;
+        }
+    </script>
+</body>
+</html>
