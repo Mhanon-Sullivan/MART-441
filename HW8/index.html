@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Animation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="animated-element image"></div>
+    <div class="animated-element text"></div>
+    <div class="shape"></div>
+
+    <script>
+        $(function() {
+            let images = ['images/image1.jfif', 'images/image2.jpg', 'images/image3.jpg'],
+                texts = ["Now THAT'S good television!", "VoxTech - Trust US with your entertainment!", "I've got to send a message of who's really in charge of things now!"],
+                shapes = ['square', 'circle', 'triangle'],
+                imgIndex = 0, textIndex = 0, shapeIndex = 0;
+
+            function getRandomPosition(element) {
+                return {
+                    top: Math.random() * (window.innerHeight - $(element).outerHeight()),
+                    left: Math.random() * (window.innerWidth - $(element).outerWidth())
+                };
+            }
+
+            function animateElement(selector, content, arr, index, callback) {
+                $(selector).fadeOut(1000, function() {
+                    $(this).css(getRandomPosition(this)).html(content).fadeIn(1000, () => 
+                        setTimeout(() => callback((index + 1) % arr.length), 2000));
+                });
+            }
+
+            function changeImage() {
+                $('.image').fadeOut(1000, function() {
+                    imgIndex = (imgIndex + 1) % images.length;
+                    $(this).css(getRandomPosition(this))
+                           .html(`<img src="${images[imgIndex]}">`)
+                           .fadeIn(1000, () => setTimeout(changeImage, 2000));
+                });
+            }
+
+            function changeText() {
+                animateElement('.text', texts[textIndex], texts, textIndex, i => {
+                    textIndex = i; changeText();
+                });
+            }
+
+            function changeShape() {
+                $('.shape').fadeOut(1000, function() {
+                    shapeIndex = (shapeIndex + 1) % shapes.length;
+                    let shapeDiv = $(this).css({
+                        width: '50px', height: '50px', background: 'rgb(255, 0, 106)', borderRadius: '0'
+                    });
+                    if (shapes[shapeIndex] === 'circle') shapeDiv.css({ borderRadius: '50%' });
+                    if (shapes[shapeIndex] === 'triangle') shapeDiv.css({
+                        width: '0', height: '0', borderLeft: '25px solid transparent',
+                        borderRight: '25px solid transparent', borderBottom: '50px rgb(255, 0, 106)', background: 'none'
+                    });
+                    $(this).css(getRandomPosition(this)).fadeIn(1000, () => setTimeout(changeShape, 2000));
+                });
+            }
+
+            changeImage();
+            changeText();
+            changeShape();
+        });
+    </script>
+</body>
+</html>
