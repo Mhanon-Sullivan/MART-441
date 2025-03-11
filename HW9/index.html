@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Data Display</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <h1>Pokémon!</h1>
+    <div class="data-container"></div>
+
+    <script>
+        (function($) {
+            $.fn.highlightPokemon = function() {
+                this.each(function() {
+                    $(this).hover(
+                        function() { $(this).addClass('highlight'); },
+                        function() { $(this).removeClass('highlight'); }
+                    );
+                });
+                return this;
+            };
+        })(jQuery);
+
+        $(document).ready(function() {
+            $.ajax({
+                url: 'pokemon.txt',
+                method: 'GET',
+                success: function(data) {
+                    const $container = $('.data-container');
+                    const pokemonList = JSON.parse(data).pokemon;
+                    pokemonList.slice(0, 151).forEach(pokemon => {
+                        const card = `<div class="card">
+                                        <h3>${pokemon.name}</h3>
+                                        <p><strong>Type:</strong> ${pokemon.type.join(', ')}</p>
+                                        <p><strong>Weaknesses:</strong> ${pokemon.weaknesses.join(', ')}</p>
+                                     </div>`;
+                        $container.append(card);
+                    });
+                    $('.card').highlightPokemon();
+                },
+            });
+        });
+    </script>
+</body>
+</html>
