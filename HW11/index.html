@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>They're Not Friends :[</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+
+</head>
+<body>
+    <p>Use WASD to move!</p>
+    <button id="playMusic" style="position:absolute; top:15px; left:150px;">Play Music</button>
+    <audio id="bgMusic" src="sound.wav" loop></audio>
+  <script>
+    let player, enemy, bgColor, sound, hasCollided = false;
+
+    function setup() {
+      createCanvas(600, 400).style('border', '5px solid orange');
+      bgColor = color(255, 0, 106);
+      player = new GameObject(100, 200, 40, color(255, 208, 114), true);
+      enemy = new GameObject(300, 200, 40, color(149,33,68), false);
+
+      let music = document.getElementById("bgMusic");
+      document.getElementById("playMusic").addEventListener("click", () => {
+        music.volume = 0.3;
+        music.play();
+    });
+}
+
+    function draw() {
+      background(bgColor);
+      player.update();
+      enemy.update();
+      player.display();
+      enemy.display();
+      
+      if (collides(player, enemy)) {
+        if (!hasCollided) {
+          bgColor = color(random(255), random(255), random(255));
+          player.size = enemy.size = random(30, 60);
+          hasCollided = true;
+        }
+      } else {
+        hasCollided = false;
+      }
+    }
+
+    function keyPressed() {
+      let k = key.toLowerCase();
+      if (k === 'a') player.move(-10, 0);
+      if (k === 'd') player.move(10, 0);
+      if (k === 'w') player.move(0, -10);
+      if (k === 's') player.move(0, 10);
+    }
+
+    class GameObject {
+      constructor(x, y, size, color, controllable) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.color = color;
+        this.controllable = controllable;
+        this.speedX = controllable ? 0 : random(2, 3) * (random() < 0.5 ? 1 : -1);
+        this.speedY = controllable ? 0 : random(2, 3) * (random() < 0.5 ? 1 : -1);
+      }
+      move(dx, dy) {
+        this.x = constrain(this.x + dx, this.size / 2, width - this.size / 2);
+        this.y = constrain(this.y + dy, this.size / 2, height - this.size / 2);
+      }
+      update() {
+        if (!this.controllable) {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          if (this.x <= this.size / 2 || this.x >= width - this.size / 2) this.speedX *= -1;
+          if (this.y <= this.size / 2 || this.y >= height - this.size / 2) this.speedY *= -1;
+        }
+      }
+      display() {
+        fill(this.color);
+        ellipse(this.x, this.y, this.size);
+      }
+    }
+
+    function collides(obj1, obj2) {
+      return dist(obj1.x, obj1.y, obj2.x, obj2.y) < (obj1.size + obj2.size) / 2;
+    }
+  </script>
+</body>
+</html>
