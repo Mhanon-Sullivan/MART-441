@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collectibles 'n Stuff!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+    <script>
+        let objects = [], collectibles = [], player, score = 0;
+
+        function loadData() {
+            fetch("objects.json")
+                .then(response => response.json())
+                .then(data => {
+                    objects = data.map(obj => new GameObject(obj.x, obj.y, obj.size));
+                })
+                .catch(error => console.error("Error loading objects.json:", error));
+
+            fetch("collectibles.json")
+                .then(response => response.json())
+                .then(data => {
+                    collectibles = data.map(col => new GameObject(col.x, col.y, col.size));
+                })
+                .catch(error => console.error("Error loading collectibles.json:", error));
+        }
+
+        class GameObject {
+            constructor(x, y, size) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+            }
+            draw(color) {
+                fill(color);
+                rect(this.x, this.y, this.size, this.size);
+            }
+        }
+
+        class Player {
+            constructor() {
+                this.x = 50;
+                this.y = 50;
+                this.size = 30;
+                this.speed = 5;
+            }
+            move() {
+                if (keyIsDown(LEFT_ARROW) && !this.collides(this.x - this.speed, this.y) && this.x - this.speed >= 0) this.x -= this.speed;
+                if (keyIsDown(RIGHT_ARROW) && !this.collides(this.x + this.speed, this.y) && this.x + this.size + this.speed <= width) this.x += this.speed;
+                if (keyIsDown(UP_ARROW) && !this.collides(this.x, this.y - this.speed) && this.y - this.speed >= 0) this.y -= this.speed;
+                if (keyIsDown(DOWN_ARROW) && !this.collides(this.x, this.y + this.speed) && this.y + this.size + this.speed <= height) this.y += this.speed;
+            }
+            collides(newX, newY) {
+                return objects.some(obj =>
+                    newX < obj.x + obj.size && newX + this.size > obj.x &&
+                    newY < obj.y + obj.size && newY + this.size > obj.y
+                );
+            }
+            draw() {
+                fill("#328d8f");
+                rect(this.x, this.y, this.size, this.size);
+            }
+        }
+
+        function setup() {
+            createCanvas(600, 400);
+            loadData();
+            player = new Player();
+        }
+
+        function draw() {
+            background(252,134,170);
+            objects.forEach(obj => obj.draw("#ff006a"));
+            collectibles.forEach(col => col.draw("#ffd072"));
+            player.move();
+            player.draw();
+            checkCollectibles();
+            fill(0);
+            textSize(20);
+            text(`Score: ${score}`, 15, 30);
+        }
+
+        function checkCollectibles() {
+            collectibles = collectibles.filter(col => {
+                if (player.x < col.x + col.size && player.x + player.size > col.x &&
+                    player.y < col.y + col.size && player.y + player.size > col.y) {
+                    score += 1;
+                    return false;
+                }
+                return true;
+            });
+        }
+    </script>
+</body>
+</html>
