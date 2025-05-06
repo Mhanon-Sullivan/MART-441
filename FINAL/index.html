@@ -14,7 +14,7 @@
     <p id="story">You are in a whimsical little forest; sunlight streams through the overhead canopies and dapples on the ground in pretty little patterns. You're not entirely sure where you are, but I'm sure you'll manage. In front of you, you see a wooden sign with two arrow signs, both pointing down different paths. Which do you follow?</p>
     <div id="choices">
       <button onclick="choosePath(1)">"Cottonwood Sheep Ranch"</button>
-      <button onclick="choosePath(2)">"Shorefront"</button>
+      <button onclick="choosePath(2)">"Shoreline"</button>
     </div>
   </div>
 
@@ -24,6 +24,16 @@
 
     var storyProgress = "";
 
+    function goToStart() {
+      storyProgress = "";
+      const storyElement = document.getElementById('story');
+      const imageElement = document.getElementById('scene-image');
+      storyElement.textContent = "You are in a whimsical little forest; sunlight streams through the overhead canopies and dapples on the ground in pretty little patterns. You're not entirely sure where you are, but I'm sure you'll manage. In front of you, you see a wooden sign with two arrow signs, both pointing down different paths. Which do you follow?";
+      imageElement.src = "images/wtFinal1.jpg";
+      document.getElementById('choices').innerHTML = `
+        <button onclick="choosePath(1)">"Cottonwood Sheep Ranch"</button>
+        <button onclick="choosePath(2)">"Shoreline"</button>`;
+}
     function choosePath(choice) {
       const storyElement = document.getElementById('story');
       const imageElement = document.getElementById('scene-image');
@@ -33,101 +43,122 @@
 
       window.scrollTo(0, 0);
 
-
       //PATH ONE - Cottonwood Sheep Ranch
       if (choice === 1) {
         storyProgress += "You follow the path marked 'Cottonwood Sheep Ranch'. ";
         storyElement.textContent = storyProgress + "The walk takes a while, but eventually you come across two small buildings: one marked 'Shepherd's Lodge', and the other marked 'Sheep Coop'. Which do you head for?";
         imageElement.src = "images/wtFinal2.jpg";
         document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to start</button>
           <button onclick="choosePath(4)">The shepherd's lodge</button>
           <button onclick="choosePath(5)">The sheep coop</button>`;
       } 
       //PATH TWO - Shorefront
       else if (choice === 2) {
-        storyProgress += "You follow that path marked 'Shorefront'. ";
-        storyElement.textContent = storyProgress + "The smell of salt and warm sand carries on the breeze as you approach, and the forest receeds back behind you. When your feet hit the beach, you feel a wave of relaxation wash over you. You see a quaint little cottage to your left and a sandy white shoreline to your right. Which do you head for?";
-        imageElement.src = "images/raccoon.jpg";
+        storyProgress += "You follow that path marked 'Shoreline'. ";
+        storyElement.textContent = storyProgress + "The smell of salt and warm sand carries on the breeze as you approach, and the forest receeds back behind you. When your feet hit the beach, you feel a wave of relaxation wash over you. You see a quaint little cottage to your left and a sandy shoreline to your right. Which do you head for?";
+        imageElement.src = "images/wtFinal8.jpg";
         document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to start</button>
           <button onclick="choosePath(6)">The cottage</button>
           <button onclick="choosePath(7)">The beach</button>`;
       } 
       //PATH ONE lodge
       else if (choice === 4) {
-        storyElement.textContent = "You walk up to the shepherd's lodge and knock on the heavy wooden door. As you wait, you look around. The lodge is a log cabin that looks particularly warm and inviting. Before you get a chance to think about the deep scratches along the base of the door, it swings open and you're met with the face a pretty blonde woman in red overalls. ''Hi! Can I help you?'' Before you can open your mouth, the woman is shoved out of the way and a large red hound scurries out, tail wagging a million miles an hour as he climbs all over you. ''Oh, bud, no! Down!'' She exclaims, pulling him away by the collar. ''Don't worry about him, he's a gentle giant. He helps me with the sheep. I'm Hennley. You look lost. Want to come in for tea?''" ;
+        storyElement.textContent = "You walk up to the shepherd's lodge and knock on the heavy wooden door. As you wait, you look around. The lodge is a log cabin that looks particularly warm and inviting. Before you get a chance to think about the deep scratches along the base of the door, it swings open and you're met with the face a pretty blonde woman in red overalls. ''Hi! Can I help you?'' Before you can open your mouth, the woman is shoved out of the way and a large red Hound scurries out, tail wagging a million miles an hour as he climbs all over you. ''Oh, bud, no! Down!'' She exclaims, pulling him away by the collar. ''Don't worry about him, he's a gentle giant. He helps me with the sheep. I'm Hennley. You look lost. Want to come in for tea?''" ;
         imageElement.src = "images/wtFinal3.jpg";
         document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to start</button>
           <button onclick="choosePath(10)">Accept the invitation</button>
-          <button onclick="choosePath(11)">Eye warily at her hound</button>`;
+          <button onclick="choosePath(11)">Eye warily at her Hound</button>`;
       } 
       //PATH ONE lodge
       else if (choice === 10) {
-        storyElement.textContent = "You accept her kind invitation and she leads you into her kitchen. You take a seat at the counter as she puts a kettle on the stove. Her hound curls up by your feet, looking up at you with big yellow puppy dog eyes. You reach down and give him a pat. His tail thumps on the tile. Aw, he really is just a big sweetheart. Hennley passes you a teacup and sits across from you with her own. You chat for hours about what she does - she cares for a flock of itsy bitsy sheep. She smiles at you. Congrats, you've just made yourself a brand new friend! Refresh to restart." ;
+        storyElement.textContent = "You accept her kind invitation and she leads you into her kitchen. You take a seat at the counter as she puts a kettle on the stove. Her Hound curls up by your feet, looking up at you with big yellow puppy dog eyes. You reach down and give him a pat. His tail thumps on the tile. Aw, he really is just a big sweetheart. Hennley passes you a teacup and sits across from you with her own. You chat for hours about what she does - she cares for a flock of itsy bitsy sheep. She smiles at you. Congrats, you've just made yourself a brand new friend!" ;
         imageElement.src = "images/wtFinal4.jpg";
-        document.getElementById('choices').innerHTML = "";
+        document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to Start</button>`;
+
 
       }
       //PATH ONE lodge
       else if (choice === 11) {
-        storyElement.textContent = "You warily gaze at the hound she's holding by the collar. ''Really, I promise, he's super nice. I can send him in with the sheep if you're uncomfortable, though.'' The hound lets out a pathetic whine, but dutifully does as he's told. You watch him trudge off to the sheep coop, looking back only once with big, sad eyes. ''Good boy!'' she calls after him. ''Now, you look lost.'' She sits down in the front yard and motions for you to join her. You both chat for a bit. You look over at the sheep coop to see the hound looking heartbroken. He let's out another sad whine, and you feel horrible. Maybe he was a good boy after all. If only you had given him a chance. Refresh to restart." ;
+        storyElement.textContent = "You warily gaze at the Hound she's holding by the collar. ''Really, I promise, he's super nice. I can send him in with the sheep if you're uncomfortable, though.'' The Hound lets out a pathetic whine, but dutifully does as he's told. You watch him trudge off to the sheep coop, looking back only once with big, sad eyes. ''Good boy!'' she calls after him. ''Now, you look lost.'' She sits down in the front yard and motions for you to join her. You both chat for a bit. You look over at the sheep coop to see the Hound looking heartbroken. He let's out another sad whine, and you feel horrible. Maybe he was a good boy after all. If only you had given him a chance." ;
         imageElement.src = "images/wtFinal5.jpg";
-        document.getElementById('choices').innerHTML = "";
+        document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to Start</button>`;
       }
       //PATH ONE coop
       else if (choice === 5) {
         storyElement.textContent = "You head over to the sheep coop. It's rather small. How can you fit more than a couple sheep in here? You peer in through a tiny window to see a flock of the tiniest little fluffballs you've ever seen. All of the sheep are about the size of a softball, and your heart melts. A little black one, the only in the herd, floats his way up to the window (they can fly!) and baas a greeting. You wave happily with a big grin on your face. Before long, a whole cloud of them are clouding the window trying to get a look at you. What will you do next?";
-        imageElement.src = "images/raccoon.jpg";
+        imageElement.src = "images/wtFinal6.jpg";
         document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to start</button>
           <button onclick="choosePath(12)">Enter the coop</button>
           <button onclick="choosePath(4)">Walk over to the shepherd's lodge</button>`;
       } 
          //PATH ONE coop
          else if (choice === 12) {
-        storyElement.textContent = "You enter the coop and are immediately bombarded by a massive swarm of bleating little sheep. They stick to you like dryer lint. They invade your pockets. They're in your hair. They're so happy to meet you! You pluck one from your face and look at it in your hand. He circles around like a dog and lays down in your palm with a contented sigh. He's SO soft! You pet his itty bitty head and gaze in awe at the floating little cottonballs all around you. Clearly, this forest is more whimsical than you originally thought. Refresh to restart." ;
-        imageElement.src = "images/raccoon.jpg";
-        document.getElementById('choices').innerHTML = "";
+        storyElement.textContent = "You enter the coop and are immediately bombarded by a massive swarm of bleating little sheep. They stick to you like dryer lint. They invade your pockets. They're in your hair. They're so happy to meet you! You pluck one from your face and look at it in your hand. He circles around like a dog and lays down in your palm with a contented sigh. He's SO soft! You pet his itty bitty head and gaze in awe at the floating little cottonballs all around you. Clearly, this forest is more whimsical than you originally thought." ;
+        imageElement.src = "images/wtFinal7.jpg";
+        document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to Start</button>`;
       }
 
       
       //PATH TWO cottage
       else if (choice === 6) {
         storyElement.textContent = "You head for the cottage. As you approach, the sunlight seems to glow a little warmer. The cottage is small and yellow, and it's surounded by a beautifully lush garden. Every little leaf seems to be stretching towards the sky, and it fills you with a strong sense of wonder. You skip over to the door and give it a hearty knock. It flies open and you're met with a cheery... vegetable woman? Literally. Her head is an actual rutabaga. She perks up and slams the door in your face. Uh. Alright. She comes back just as quickly with another person - a bright pink dog lady. She waves at you and prompty sets a trowel in your hand. They both push you out into the garden and they get to work in the dirt. What do you do?";
-        imageElement.src = "images/raccoon.jpg";
+        imageElement.src = "images/wtFinal9.jpg";
         document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to start</button>
           <button onclick="choosePath(13)">Help them</button>
           <button onclick="choosePath(14)">Watch</button>`;
       } 
         //PATH TWO cottage
         else if (choice === 13) {
-        storyElement.textContent = "You throw caution to the wind and kneel in front of the garden. The dog points to various clusters of weeds and you seem to get the idea. You all work together for a little bit, and by the time you're done, the garden is pristine and weed-free. You wipe the sweat from your forehead and look over at the pair of gardeners. The dog, who's name you learn is Bibi, shakes your hand and passes you a basket full of the brightest, juciest tomatoes you've ever seen. Your mouth waters at the sight of them. The vegetable woman, Ruthabaga, pats you on the back with an approving nod. You're a little confused how you got roped into this, but grateful nonetheless. You have tomatoes now. Congratulations! Refresh to restart.";
-        imageElement.src = "images/raccoon.jpg";
-        document.getElementById('choices').innerHTML = "";
+        storyElement.textContent = "You throw caution to the wind and kneel in front of the garden. The dog points to various clusters of weeds and you seem to get the idea. You all work together for a little bit, and by the time you're done, the garden is pristine and weed-free. You wipe the sweat from your forehead and look over at the pair of gardeners. The dog, who's name you learn is Bibi, shakes your hand and passes you a basket full of the brightest, juciest tomatoes you've ever seen. Your mouth waters at the sight of them. The vegetable woman, Ruthabaga, pats you on the back with an approving nod. You're a little confused how you got roped into this, but grateful nonetheless. You have tomatoes now. Congratulations!";
+        imageElement.src = "images/wtFinal10.jpg";
+        document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to Start</button>`;
       }
           //PATH TWO cottage
         else if (choice === 14) {
-        storyElement.textContent = "You simply stand back and watch, trowel in hand. The pair absolutely go to town on the garden and all you can do is stare. They're harvesting some of the most beautiful vegetables you've ever seen. Neither of them say a word, but they seem to communicate with each other effortlessly enough. The vegetable woman looks up at you with a confused look on her face and walks over. She sees the sweat on your brow, squints up at the sun, then plops a big ol' sunhat on your head before going back to work. I guess they don't mind that you're not helping. As confused as you are, it's nice to have company. Perhaps you should help them pluck a carrot or two while you're here, just to be nice. Refresh to restart.";
-        imageElement.src = "images/raccoon.jpg";
-        document.getElementById('choices').innerHTML = "";
+        storyElement.textContent = "You simply stand back and watch, trowel in hand. The pair absolutely go to town on the garden and all you can do is stare. They're harvesting some of the most beautiful vegetables you've ever seen. Neither of them say a word, but they seem to communicate with each other effortlessly enough. The vegetable woman looks up at you with a confused look on her face and walks over. She sees the sweat on your brow, squints up at the sun, then plops a big ol' sunhat on your head before going back to work. I guess they don't mind that you're not helping. As confused as you are, it's nice to have company. Perhaps you should help them pluck a carrot or two while you're here, just to be nice.";
+        imageElement.src = "images/wtFinal11.jpg";
+        document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to Start</button>`;
       }
       //PATH TWO beach
       else if (choice === 7) {
-        storyElement.textContent = "You head towards the beach. The sand is plush and the sun is hot. The crystal clear water froths on the shore as gulls call in the distance. It's peaceful here. You smile and sit down, enjoying the weather. ''Hey! Hi! Over here, look this way!'' You turn your head to see a woman laying in the shallow water a short distance a way. ''Could you give me a hand?'' You walk over and your eyes widen to see that she's a very pretty mermaid. She's tugging at an old fishing line that's tightly coiled around her tail. It's digging into her scales in a way that seems terribly uncomfortable.";
-        imageElement.src = "images/raccoon.jpg";
+        storyElement.textContent = "You head towards the beach. The sand is plush and the sun is hot. The crystal clear water froths on the shore as gulls call in the distance. It's peaceful here. You smile and sit down, enjoying the weather. You tilt your face to the sky and feel the breeze on your skin. ''Hey! Hi! Over here, look this way!'' You turn your head to see a woman laying in the shallow water a short distance a way.";
+        imageElement.src = "images/wtFinal12.jpg";
         document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to start</button>
+          <button onclick="choosePath(17)">Continue</button>`;
+      } 
+            //PATH TWO beach
+            else if (choice === 17) {
+        storyElement.textContent = "You walk over and your eyes widen to see that she's a very pretty mermaid. She's tugging at an old fishing line that's tightly coiled around her tail. It's digging into her scales in a way that seems terribly uncomfortable. ''Could you give me a hand?''";
+        imageElement.src = "images/wtFinal13.jpg";
+        document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to start</button>
           <button onclick="choosePath(15)">Tug with her</button>
           <button onclick="choosePath(16)">Get creative</button>`;
       } 
       //PATH TWO beach
       else if (choice === 15) {
-        storyElement.textContent = "You kneel down beside her and start tugging on the line. She winces as it catches some of her scales. With a bit of effort and a considerable amount of time later, you've loosened the line enough to pull it off of her. Unfortunately, you've taken a lot of scales off with it. The bare patches on her tail look painful. ''Thank you for your help,'' she says. ''I thought I'd be tangled up like that forever!'' You nod and she drags herself back over to the water. Golly, if a mermaid could limp, that's what she'd be doing. Maybe there was a way to get the line off without hurting her so much in the process. Refresh to restart.";
-        imageElement.src = "images/raccoon.jpg";
-        document.getElementById('choices').innerHTML = "";
+        storyElement.textContent = "You kneel down beside her and start tugging on the line. She winces as it catches some of her scales. With a bit of effort and a considerable amount of time later, you've loosened the line enough to pull it off of her. Unfortunately, you've taken a lot of scales off with it. The bare patches on her tail look painful. ''Thank you for your help,'' she says. ''I thought I'd be tangled up like that forever!'' You nod and she drags herself back over to the water. Golly, if a mermaid could limp, that's what she'd be doing. Maybe there was a way to get the line off without hurting her so much in the process.";
+        imageElement.src = "images/wtFinal14.jpg";
+        document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to Start</button>`;
       } 
       //PATH THREE
       else if (choice === 16) {
-        storyElement.textContent = "You nod and inspect the fishing line. It's embedded rather deep into her tail, and any unnessesary tugging might really hurt her. You look around for a better solution. In the sand a few feet away, you see a crab crawling merrily along. You snatch him up and set him on the mermaid's tail. ''Oh, you're a genius!'' she cheers. She waves at the crab and he bounces happily. You lift up little pieces of the line and the crab starts snipping. After no time at all, the mermaid is cut loose and relatively unharmed. ''Thank you so much, you guys! Here,'' she shoves her hand into a little purse at her side and pulls out two pearls: one for you and one for the crab. ''For you both. I'm Darcie, by the way. Thank you again! I hope we meet again soon! Hopefully without the fishing line, next time,'' she chuckles. With that, she scooches back over to the water and slides right in with a soft splash. Refresh to restart.";
-        imageElement.src = "images/raccoon.jpg";
-        document.getElementById('choices').innerHTML = "";
+        storyElement.textContent = "You nod and inspect the fishing line. It's embedded rather deep into her tail, and any unnessesary tugging might really hurt her. You look around for a better solution. In the sand a few feet away, you see a crab crawling merrily along. You snatch him up and set him on the mermaid's tail. ''Oh, you're a genius!'' she cheers. She waves at the crab and he bounces happily. You lift up little pieces of the line and the crab starts snipping. After no time at all, the mermaid is cut loose and relatively unharmed. ''Thank you so much, you guys! Here,'' she shoves her hand into a little pocket in her tail and pulls out two pearls: one for you and one for the crab. ''For you both. I'm Darcie, by the way. I hope we meet again soon! Hopefully without the fishing line, next time,'' she chuckles. With that, she scooches back over to the water and slides right in with a soft splash.";
+        imageElement.src = "images/wtFinal15.jpg";
+        document.getElementById('choices').innerHTML = `
+          <button onclick="goToStart()">Return to Start</button>`;
       }
     }
   </script>
